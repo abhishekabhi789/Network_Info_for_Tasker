@@ -1,0 +1,33 @@
+# Ignore IntelliJ IDEA files
+.idea/
+
+# Ignore Gradle build files
+.gradle
+/build
+
+# Ignore Android Studio captures directory
+/captures
+
+# Ignore macOS-specific files
+.DS_Store
+
+# Ignore APK files
+/app/debug
+/app/release
+
+#remove unwanted builds
+/app/build/
+
+# Ignore Android Studio project files
+*.iml
+/local.properties
+
+# Ignore miscellaneous files
+/.gradle/
+/output-metadata.json
+
+# Ignore Git-related files
+.vcs.xml
+.externalNativeBuild
+.cxx
+/.idea/deploymentTargetDropDown.xml

@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".siminfo.actioninfoquery.SimInfoActionConfig">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/sim_slot_selection_title"
+        style="@style/textViewStyle"
+        android:text="@string/choose_a_sim_slot"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/sim_selection_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sim_slot_selection_title">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/sim_slot_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sim_1" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/sim_slot_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sim_2" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/sim_slot_default_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/default_data_sim" />
+    </LinearLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_config_button"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/save_config_button_text"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="@dimen/main_text_size"
+        app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+        app:icon="@drawable/ic_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sim_selection_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dp"
+    android:orientation="vertical"
+    tools:context=".siminfo.actioninfoquery.SimInfoActionConfig">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/query_mode_title"
+        style="@style/textViewStyle"
+        android:text="@string/query_mode"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/query_mode"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/query_mode_title">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/query_mode_today"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/today" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/query_mode_this_month"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/this_month" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/query_mode_custom_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/custom" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/custom_query_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/query_mode">
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/start_time_input_layout"
+            style="@style/textInputLayoutStyle"
+            android:hint="@string/start_time_in_millis"
+            app:layout_constraintEnd_toStartOf="@id/choose_start_time_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/start_time_input"
+                style="@style/editTextStyle"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_start_time_button"
+            style="@style/buttonStyle"
+            android:layout_marginHorizontal="4dp"
+            app:icon="@drawable/ic_variable"
+            app:layout_constraintBottom_toBottomOf="@+id/start_time_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/start_time_input_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/end_time_input_layout"
+            style="@style/textInputLayoutStyle"
+            android:hint="@string/end_time_millis"
+            app:layout_constraintEnd_toStartOf="@id/choose_end_time_button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/start_time_input_layout">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/end_time_input"
+                style="@style/editTextStyle"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/choose_end_time_button"
+            style="@style/buttonStyle"
+            android:layout_marginHorizontal="4dp"
+            app:icon="@drawable/ic_variable"
+            app:layout_constraintBottom_toBottomOf="@+id/end_time_input_layout"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/end_time_input_layout" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/network_type_title"
+        style="@style/textViewStyle"
+        android:text="@string/network_type"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/custom_query_input" />
+
+    <RadioGroup
+        android:id="@+id/network_type"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/network_type_title">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/network_type_mobile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/mobile" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/network_type_wifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/wi_fi" />
+    </RadioGroup>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/sim_slot_selection"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/network_type">
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/sim_slot_selection_title"
+            style="@style/textViewStyle"
+            android:text="@string/choose_a_sim_slot"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <RadioGroup
+            android:id="@+id/sim_slots"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/sim_slot_selection_title">
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/sim_slot_1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sim_1" />
+
+            <com.google.android.material.radiobutton.MaterialRadioButton
+                android:id="@+id/sim_slot_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/sim_2" />
+        </RadioGroup>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/app_list_input_title"
+        style="@style/textViewStyle"
+        android:text="@string/query_for_app_data_usage"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sim_slot_selection" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/app_list_input_layout"
+        style="@style/textInputLayoutStyle"
+        android:hint="@string/array_of_app_uids"
+        app:layout_constraintEnd_toStartOf="@id/app_list_variable_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_list_input_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/app_list_input"
+            style="@style/editTextStyle" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/app_list_variable_button"
+        style="@style/buttonStyle"
+        android:layout_marginHorizontal="4dp"
+        app:icon="@drawable/ic_variable"
+        app:layout_constraintBottom_toBottomOf="@+id/app_list_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/app_list_input_layout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_config_button"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/save_config_button_text"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="@dimen/main_text_size"
+        app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+        app:icon="@drawable/ic_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_list_input_layout" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
