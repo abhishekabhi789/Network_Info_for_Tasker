@@ -9,6 +9,8 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+<!--    Permission for calllog related-->
+    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
 
     <application
         android:allowBackup="true"
@@ -43,6 +45,16 @@
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
             android:label="Data SIM Changed"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".call.eventcalllogentry.CallLogEntryEventConfig"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Call Log Entry"
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
