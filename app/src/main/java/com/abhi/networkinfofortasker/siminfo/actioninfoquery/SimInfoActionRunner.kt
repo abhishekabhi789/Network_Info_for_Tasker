@@ -2,7 +2,7 @@ package com.abhi.networkinfofortasker.siminfo.actioninfoquery
 
 import android.content.Context
 import com.abhi.networkinfofortasker.R
-import com.abhi.networkinfofortasker.SimSlots
+import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.siminfo.SimInfo
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
 import com.abhi.networkinfofortasker.utils.Convert

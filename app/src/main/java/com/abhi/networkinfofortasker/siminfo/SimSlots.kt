@@ -1,4 +1,4 @@
-package com.abhi.networkinfofortasker
+package com.abhi.networkinfofortasker.siminfo
 
 enum class SimSlots(val id: String, val index: Int?, val label: String?) {
     SIM1("sim_slot_1", 0, "SIM 1"),

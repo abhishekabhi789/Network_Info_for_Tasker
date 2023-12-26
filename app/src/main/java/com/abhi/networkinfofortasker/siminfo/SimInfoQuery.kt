@@ -4,7 +4,6 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Build
 import android.telephony.SubscriptionManager
-import com.abhi.networkinfofortasker.SimSlots
 import com.abhi.networkinfofortasker.utils.PermissionHelper
 import java.lang.reflect.InvocationTargetException
 

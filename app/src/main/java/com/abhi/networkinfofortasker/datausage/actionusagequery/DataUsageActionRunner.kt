@@ -4,7 +4,7 @@ import android.content.Context
 import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
 import com.abhi.networkinfofortasker.R
-import com.abhi.networkinfofortasker.SimSlots
+import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.datausage.DataUsage
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
 import com.abhi.networkinfofortasker.utils.Convert
