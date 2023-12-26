@@ -11,7 +11,7 @@ import com.abhi.networkinfofortasker.utils.Dialogue.toToast
 
 object Tasker {
     /**Save Action configuration after validating*/
-    fun saveActionConfig(
+    fun saveConfig(
         activity: Activity,
         taskerHelper: Any,
         requiredPermissions: List<PermissionHelper.Permission>?

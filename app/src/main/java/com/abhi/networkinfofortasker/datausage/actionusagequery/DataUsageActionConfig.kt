@@ -9,7 +9,7 @@ import com.abhi.networkinfofortasker.NetworkType
 import com.abhi.networkinfofortasker.databinding.DataUsageActionInputBinding
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
 import com.abhi.networkinfofortasker.utils.Tasker.chooseVariable
-import com.abhi.networkinfofortasker.utils.Tasker.saveActionConfig
+import com.abhi.networkinfofortasker.utils.Tasker.saveConfig
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 
@@ -105,12 +105,12 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
         binding.appListVariableButton.setOnClickListener {
             chooseVariable(this, binding.appListInput.id, taskerHelper)
         }
-        binding.saveConfigButton.setOnClickListener { saveActionConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this)) }
+        binding.saveConfigButton.setOnClickListener { saveConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this)) }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.repeatCount == 0) {
-            saveActionConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this))
+            saveConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this))
         }
         return super.onKeyDown(keyCode, event)
     }

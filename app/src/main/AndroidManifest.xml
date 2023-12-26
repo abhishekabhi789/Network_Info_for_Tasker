@@ -50,7 +50,7 @@
         </activity>
 
         <receiver
-            android:name=".siminfo.eventdatasimchanged.DataConnectionReceiver"
+            android:name=".siminfo.eventdatasimchanged.DataSimChangeReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.telephony.action.DEFAULT_SUBSCRIPTION_CHANGED" />

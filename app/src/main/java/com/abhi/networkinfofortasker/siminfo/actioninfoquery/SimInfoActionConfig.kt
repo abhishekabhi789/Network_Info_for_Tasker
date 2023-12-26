@@ -6,7 +6,7 @@ import android.os.Bundle
 import android.view.KeyEvent
 import com.abhi.networkinfofortasker.databinding.SimInfoActionInputBinding
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
-import com.abhi.networkinfofortasker.utils.Tasker.saveActionConfig
+import com.abhi.networkinfofortasker.utils.Tasker.saveConfig
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 
@@ -38,7 +38,7 @@ class SimInfoActionConfig : Activity(), TaskerPluginConfig<SimInfoActionInput> {
         setContentView(binding.root)
         taskerHelper.onCreate()
         binding.saveConfigButton.setOnClickListener {
-            saveActionConfig(
+            saveConfig(
                 this,
                 taskerHelper,
                 simInfoQuery.getMissingPermissions(this)
@@ -48,7 +48,7 @@ class SimInfoActionConfig : Activity(), TaskerPluginConfig<SimInfoActionInput> {
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.repeatCount == 0) {
-            saveActionConfig(this, taskerHelper, simInfoQuery.getMissingPermissions(this))
+            saveConfig(this, taskerHelper, simInfoQuery.getMissingPermissions(this))
         }
         return super.onKeyDown(keyCode, event)
     }

@@ -19,4 +19,5 @@
     <string name="query_for_app_data_usage">Query for app data usage</string>
     <string name="array_of_app_uids">Array of app UIDs</string>
     <string name="default_data_sim">Default Data SIM</string>
+    <string name="permissions_missing">Permissions missing</string>
 </resources>

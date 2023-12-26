@@ -9,7 +9,7 @@ import android.util.Log
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
 import com.joaomgcd.taskerpluginlibrary.extensions.requestQuery
 
-class DataConnectionReceiver : BroadcastReceiver() {
+class DataSimChangeReceiver : BroadcastReceiver() {
 
     @SuppressLint("InlinedApi")
     override fun onReceive(context: Context, intent: Intent) {

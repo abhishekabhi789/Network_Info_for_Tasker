@@ -3,11 +3,11 @@ package com.abhi.networkinfofortasker.datausage.actionusagequery
 import android.content.Context
 import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
+import com.abhi.networkinfofortasker.R
 import com.abhi.networkinfofortasker.SimSlots
 import com.abhi.networkinfofortasker.datausage.DataUsage
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
 import com.abhi.networkinfofortasker.utils.Convert
-import com.abhi.networkinfofortasker.utils.PermissionHelper
 import com.abhi.networkinfofortasker.utils.TimeUtils.getStartTimeForThisMonth
 import com.abhi.networkinfofortasker.utils.TimeUtils.getStartTimeForToday
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
@@ -27,7 +27,7 @@ class DataUsageActionRunner :
         if (missingPermissions.isNotEmpty()) {
             return TaskerPluginResultErrorWithOutput(
                 1,
-                PermissionHelper.askMissingPermissions(context, missingPermissions)
+                context.getString(R.string.permissions_missing)
             )
         }
 
