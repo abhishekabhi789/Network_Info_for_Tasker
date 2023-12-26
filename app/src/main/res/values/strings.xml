@@ -1,23 +1,50 @@
 <resources>
     <string name="app_name">Network Info for Tasker</string>
-    <string name="configuration_saved">Configuration saved</string>
-    <string name="save_config_button_text">save</string>
-    <string name="no_variable_to_show">No variables to show</string>
+    <!--    Plugin configuration activity general-->
     <string name="choose_a_variable">Choose a variable</string>
+    <string name="no_variable_to_show">No variables to show</string>
+    <string name="configuration_saved">Configuration saved</string>
+    <string name="permissions_missing">Permissions missing</string>
+    <!--    Plugin configuration layout general-->
+    <string name="save_config_button_text">save</string>
+    <!--    Data Usage-->
     <string name="query_mode">Query Mode</string>
+    <string name="query_for_app_data_usage">Query for app data usage</string>
+    <string name="array_of_app_uids">Array of app UIDs</string>
     <string name="today">Today</string>
     <string name="this_month">This Month</string>
     <string name="custom">Custom</string>
     <string name="start_time_in_millis">start time in millis</string>
+    <!--    Data Usage and Sim Info-->
     <string name="end_time_millis">end time millis</string>
     <string name="network_type">Network Type</string>
+    <string name="choose_a_sim_slot">Choose a sim slot</string>
     <string name="mobile">Mobile</string>
     <string name="wi_fi">Wi-Fi</string>
-    <string name="choose_a_sim_slot">Choose a sim slot</string>
     <string name="sim_1">SIM 1</string>
     <string name="sim_2">SIM 2</string>
-    <string name="query_for_app_data_usage">Query for app data usage</string>
-    <string name="array_of_app_uids">Array of app UIDs</string>
     <string name="default_data_sim">Default Data SIM</string>
-    <string name="permissions_missing">Permissions missing</string>
+    <!--    Call log-->
+    <!--    Call log IO-->
+    <string name="cle_label_phone_number">Phone Number</string>
+    <string name="cle_html_label_phone_number">Phone number of the event</string>
+    <string name="cle_label_name">Contact Name</string>
+    <string name="cle_html_label_name">Name if available</string>
+    <string name="cle_label_type">Call Type</string>
+    <string name="cle_html_label_type">Direction of the call</string>
+    <string name="cle_label_time">Call Time</string>
+    <string name="cle_html_label_time">Timestamp of the call</string>
+    <string name="cle_label_sim_index">Sim Index</string>
+    <string name="cle_html_label_sim_index">Slot index of the sim</string>
+    <!--    Data Usage IO-->
+    <string name="du_label_data_usage">Data Usage</string>
+    <string name="du_html_label_data_usage">Data usage as a JSON string</string>
+    <!--    SIM details-->
+<!--    SIM Info-->
+    <string name="si_label_sim_info">Data SIM New</string>
+    <string name="si_html_label_sim_info">Newly selected default data sim details as JSON string</string>
+<!--    SIM Changed-->
+    <string name="sc_label_new_sim">Data SIM New</string>
+    <string name="sc_html_label_new_sim">Newly selected default data sim details as JSON string</string>
+
 </resources>

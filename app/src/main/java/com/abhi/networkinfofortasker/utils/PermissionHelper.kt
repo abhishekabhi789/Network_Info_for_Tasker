@@ -1,5 +1,6 @@
 package com.abhi.networkinfofortasker.utils
 
+import android.Manifest
 import android.app.Activity
 import android.app.AppOpsManager
 import android.content.Context
@@ -37,24 +38,29 @@ object PermissionHelper {
         startActivity(context, intent, null)
     }
 
-    private fun hasReadPhoneStatePermission(context: Context): Boolean {
+    private fun checkPermissionWithContextCompat(
+        context: Context,
+        permission: String
+    ): Boolean {
         return ContextCompat.checkSelfPermission(
             context,
-            android.Manifest.permission.READ_PHONE_STATE
+            permission
         ) == PackageManager.PERMISSION_GRANTED
     }
 
-    private fun askReadPhoneStatePermission(context: Any) {
+    private fun askPermissionWithActivityCompat(
+        context: Any,
+        permissions: Array<String>
+    ) {
         when (context) {
             is Activity -> ActivityCompat.requestPermissions(
                 context,
-                arrayOf(android.Manifest.permission.READ_PHONE_STATE),
+                permissions,
                 123
             )
+
             is Context -> launchAppSettings(context)
-
         }
-
     }
 
     fun getMissingPermissions(
@@ -98,8 +104,18 @@ object PermissionHelper {
         ),
         PHONE_STATE(
             "missing phone access",
-            { context -> hasReadPhoneStatePermission(context) },
-            { context -> askReadPhoneStatePermission(context) }
-        )
+            { context ->
+                checkPermissionWithContextCompat(
+                    context,
+                    Manifest.permission.READ_PHONE_STATE
+                )
+            },
+            { context ->
+                askPermissionWithActivityCompat(
+                    context,
+                    arrayOf(Manifest.permission.READ_PHONE_STATE)
+                )
+            }
+        ),
     }
 }

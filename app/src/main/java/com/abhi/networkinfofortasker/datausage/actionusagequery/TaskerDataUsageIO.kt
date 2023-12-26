@@ -22,3 +22,5 @@ class DataUsageActionInput @JvmOverloads constructor(
 class DataUsageActionOutput @JvmOverloads constructor(
     @field:TaskerInputField("data_usage") @get:TaskerOutputVariable("data_usage") val dataUsage: String? = null
 )
+
+// TODO: fix labels

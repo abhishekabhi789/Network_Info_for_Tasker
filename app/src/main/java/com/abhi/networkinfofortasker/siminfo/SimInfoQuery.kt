@@ -31,7 +31,7 @@ class SimInfoQuery {
         return if (info != null) SimInfo(
             info.displayName.toString(),
             info.number,
-            info.simSlotIndex,
+            info.simSlotIndex +1, //tasker needs index starting at zero
             getSimNameForIndex(index)
         ) else null
     }
@@ -44,13 +44,13 @@ class SimInfoQuery {
         return SimInfo(
             info.displayName.toString(),
             info.number,
-            info.simSlotIndex,
+            info.simSlotIndex +1,
             getSimNameForIndex(info.simSlotIndex)
         )
     }
 
     private fun getDefaultDataSubscriptionId(subscriptionManager: SubscriptionManager): Int {
-        //soruce: https://stackoverflow.com/a/46760070
+        //source: https://stackoverflow.com/a/46760070
         if (Build.VERSION.SDK_INT >= 24) {
             val nDataSubscriptionId = SubscriptionManager.getDefaultDataSubscriptionId()
             if (nDataSubscriptionId != SubscriptionManager.INVALID_SUBSCRIPTION_ID) {
@@ -66,14 +66,14 @@ class SimInfoQuery {
                     return getDefaultDataSubscriptionId.invoke(subscriptionManager) as Int
                 } catch (e1: IllegalAccessException) {
                     e1.printStackTrace()
-                } catch (e1: InvocationTargetException) {
-                    e1.printStackTrace()
+                } catch (e2: InvocationTargetException) {
+                    e2.printStackTrace()
                 }
-            } catch (e1: NoSuchMethodException) {
-                e1.printStackTrace()
+            } catch (e3: NoSuchMethodException) {
+                e3.printStackTrace()
             }
-        } catch (e1: ClassNotFoundException) {
-            e1.printStackTrace()
+        } catch (e4: ClassNotFoundException) {
+            e4.printStackTrace()
         }
         return -1
     }
