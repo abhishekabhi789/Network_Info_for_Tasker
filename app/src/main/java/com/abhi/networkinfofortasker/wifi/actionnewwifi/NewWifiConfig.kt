@@ -1,4 +1,4 @@
-package com.abhi.networkinfofortasker.wifi.actionconnectnewwifi
+package com.abhi.networkinfofortasker.wifi.actionnewwifi
 
 import android.app.Activity
 import android.content.Context
@@ -10,24 +10,24 @@ import com.abhi.networkinfofortasker.utils.Tasker.saveConfig
 import com.joaomgcd.taskerpluginlibrary.config.TaskerPluginConfig
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 
-class ConnectNewWifiConfig : Activity(), TaskerPluginConfig<ConnectNewWifiInput> {
+class NewWifiConfig : Activity(), TaskerPluginConfig<NewWifiInput> {
     private lateinit var binding: WifiConnectNewActionBinding
-    private val taskerHelper by lazy { ConnectNewWIfiHelper(this) }
+    private val taskerHelper by lazy { NewWIfiHelper(this) }
     override val context: Context
         get() = applicationContext
-    override val inputForTasker: TaskerInput<ConnectNewWifiInput>
+    override val inputForTasker: TaskerInput<NewWifiInput>
         get() = TaskerInput(
-            ConnectNewWifiInput(
+            NewWifiInput(
                 binding.wifiSsidInput.text.toString(), binding.wifiPasswordInput.text.toString()
             )
         )
 
-    override fun assignFromInput(input: TaskerInput<ConnectNewWifiInput>) {
+    override fun assignFromInput(input: TaskerInput<NewWifiInput>) {
         input.regular.run {
             binding.wifiSsidInput.setText(wifiSsid)
             binding.wifiPasswordInput.setText(wifiPassword)
             binding.saveConfigButton.setOnClickListener {
-                saveConfig(this@ConnectNewWifiConfig, taskerHelper, null)
+                saveConfig(this@NewWifiConfig, taskerHelper, null)
             }
         }
     }

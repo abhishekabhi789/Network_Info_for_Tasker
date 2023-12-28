@@ -9,12 +9,11 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <!--    Permissions for Wi-FI access-->
-    <!--    Required till Q to add new wifi-->
-        <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" android:minSdkVersion="29" />
+    <!--    Permissions for Wi-FI control-->
+    <!--    Required from Q to add new wifi-->
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--    Required to add new wifi on devices below Q-->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
 
     <application
         android:allowBackup="true"
@@ -55,10 +54,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wifi.actionconnectnewwifi.ConnectNewWifiConfig"
+            android:name=".wifi.actionnewwifi.NewWifiConfig"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="Connect to WiFi"
+            android:label="Add new WiFi"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />

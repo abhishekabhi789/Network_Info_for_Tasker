@@ -1,4 +1,4 @@
-package com.abhi.networkinfofortasker.wifi.actionconnectnewwifi
+package com.abhi.networkinfofortasker.wifi.actionnewwifi
 
 import android.content.Context
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerActionNoOutput
@@ -7,10 +7,10 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResult
 import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 
 
-class ConnectNewWifiRunner : TaskerPluginRunnerActionNoOutput<ConnectNewWifiInput>() {
+class NewWifiRunner : TaskerPluginRunnerActionNoOutput<NewWifiInput>() {
     override fun run(
         context: Context,
-        input: TaskerInput<ConnectNewWifiInput>
+        input: TaskerInput<NewWifiInput>
     ): TaskerPluginResult<Unit> {
         WifiHelper().connectNewWiFi(
             context,
