@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    <!--Permission for Plugin Library-->
+    <!--    Permission for Plugin Library-->
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
-    <!--Permission for querying data usage-->
+    <!--    Permission for querying data usage-->
     <uses-permission
         android:name="android.permission.PACKAGE_USAGE_STATS"
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--    Permissions for Wi-FI access-->
+    <!--    Required till Q to add new wifi-->
+        <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" android:minSdkVersion="29" />
+    <!--    Required to add new wifi on devices below Q-->
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+
 
     <application
         android:allowBackup="true"
@@ -46,6 +52,16 @@
             android:theme="@android:style/Theme.NoDisplay">
             <intent-filter>
                 <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".wifi.actionconnectnewwifi.ConnectNewWifiConfig"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Connect to WiFi"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
 

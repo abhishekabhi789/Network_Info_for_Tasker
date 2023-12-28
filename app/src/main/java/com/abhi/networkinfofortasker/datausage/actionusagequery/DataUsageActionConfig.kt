@@ -61,9 +61,9 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
             } else if (networkType == NetworkType.MOBILE.id) binding.simSlots.check(
                 binding.simSlot1.id
             )
-            binding.startTimeInput.setText(input.regular.startTime)
-            binding.endTimeInput.setText(input.regular.endTime)
-            binding.appListInput.setText(input.regular.appPackages)
+            binding.startTimeInput.setText(startTime)
+            binding.endTimeInput.setText(endTime)
+            binding.appListInput.setText(appPackages)
         }
     }
 

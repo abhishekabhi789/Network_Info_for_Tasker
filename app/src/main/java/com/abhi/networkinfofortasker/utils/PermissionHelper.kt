@@ -15,14 +15,14 @@ import com.abhi.networkinfofortasker.utils.Dialogue.toToast
 
 
 object PermissionHelper {
-    private fun hasUsagePermission(context: Context): Boolean {
+    private fun hasAppOpsPermission(context: Context, permission: String): Boolean {
         return try {
             val packageManager: PackageManager = context.packageManager
             val applicationInfo =
                 packageManager.getApplicationInfo(context.packageName, 0)
             val appOpsManager = context.getSystemService(Context.APP_OPS_SERVICE) as AppOpsManager
             val mode = appOpsManager.checkOpNoThrow(
-                AppOpsManager.OPSTR_GET_USAGE_STATS,
+                permission,
                 applicationInfo.uid,
                 applicationInfo.packageName
             )
@@ -32,8 +32,8 @@ object PermissionHelper {
         }
     }
 
-    private fun askUsagePermission(context: Context) {
-        val intent = Intent(Settings.ACTION_USAGE_ACCESS_SETTINGS)
+    private fun openPermissionSettingsPage(context: Context, permission: String) {
+        val intent = Intent(permission)
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
         startActivity(context, intent, null)
     }
@@ -99,8 +99,13 @@ object PermissionHelper {
     ) {
         USAGE_ACCESS(
             "missing usage access",
-            { context -> hasUsagePermission(context) },
-            { context -> askUsagePermission(context as Context) }
+            { context -> hasAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS) },
+            { context ->
+                openPermissionSettingsPage(
+                    context as Context,
+                    Settings.ACTION_USAGE_ACCESS_SETTINGS
+                )
+            }
         ),
         PHONE_STATE(
             "missing phone access",

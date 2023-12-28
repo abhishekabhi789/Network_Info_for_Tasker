@@ -34,5 +34,8 @@
     <!--    SIM Changed-->
     <string name="sc_label_new_sim">Data SIM New</string>
     <string name="sc_html_label_new_sim">Newly selected default data sim details as JSON string</string>
+    <string name="connect_to_a_new_wi_fi">Connect to a new WI-FI</string>
+    <string name="password">Password</string>
+    <string name="ssid">SSID</string>
 
 </resources>

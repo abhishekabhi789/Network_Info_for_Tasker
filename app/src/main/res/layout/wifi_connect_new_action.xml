@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".wifi.actionconnectnewwifi.ConnectNewWifiConfig">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/wifi_connect_new_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/connect_to_a_new_wi_fi"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/wifi_ssid_input_layout"
+        style="@style/textInputLayoutStyle"
+        android:hint="@string/ssid"
+        app:layout_constraintEnd_toStartOf="@id/choose_ssid_variable_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wifi_connect_new_title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/wifi_ssid_input"
+            style="@style/editTextStyle"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choose_ssid_variable_button"
+        style="@style/buttonStyle"
+        android:layout_marginHorizontal="4dp"
+        app:icon="@drawable/ic_variable"
+        app:layout_constraintBottom_toBottomOf="@id/wifi_ssid_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/wifi_ssid_input_layout" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/wifi_password_input_layout"
+        style="@style/textInputLayoutStyle"
+        android:hint="@string/password"
+        app:layout_constraintEnd_toStartOf="@id/choose_password_variable_button"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wifi_ssid_input_layout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/wifi_password_input"
+            style="@style/editTextStyle"
+            android:inputType="text"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/choose_password_variable_button"
+        style="@style/buttonStyle"
+        android:layout_marginHorizontal="4dp"
+        app:icon="@drawable/ic_variable"
+        app:layout_constraintBottom_toBottomOf="@id/wifi_password_input_layout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/wifi_password_input_layout" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_config_button"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/save_config_button_text"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="@dimen/main_text_size"
+        app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+        app:icon="@drawable/ic_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/wifi_password_input_layout" />
+</androidx.constraintlayout.widget.ConstraintLayout>
