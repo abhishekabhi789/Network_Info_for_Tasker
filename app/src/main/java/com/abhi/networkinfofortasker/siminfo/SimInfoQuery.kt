@@ -79,7 +79,18 @@ class SimInfoQuery {
     }
 
     fun getMissingPermissions(context: Context): List<PermissionHelper.Permission> {
-        val requiredPermissions = listOf(PermissionHelper.Permission.PHONE_STATE)
+        val requiredPermissions = listOf(PermissionHelper.Permission.READ_PHONE_STATE)
         return PermissionHelper.getMissingPermissions(context, requiredPermissions)
     }
+
+    @SuppressLint("MissingPermission")
+    fun getSimIndexFromSubscriptionId(context: Context, subscriptionId: Int): Int {
+        val subscriptionManager =
+            context.getSystemService(Context.TELEPHONY_SUBSCRIPTION_SERVICE) as SubscriptionManager
+        val subscriptionInfoList = subscriptionManager.activeSubscriptionInfoList
+
+        val info = subscriptionInfoList?.find { it.subscriptionId == subscriptionId }
+        return info?.simSlotIndex ?: -1
+    }
+
 }

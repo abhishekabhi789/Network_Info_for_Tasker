@@ -19,7 +19,7 @@ class CallLogEntryEventConfig : Activity(), TaskerPluginConfigNoInput {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val missingPermissions =
-            PermissionHelper.getMissingPermissions(this, listOf(CallLogObserver.neededPermission))
+            PermissionHelper.getMissingPermissions(this, CallLogObserver.neededPermission)
         if (missingPermissions.isNotEmpty()) {
             PermissionHelper.askMissingPermissions(this, missingPermissions)
             finish()

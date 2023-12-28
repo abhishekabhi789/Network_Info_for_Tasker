@@ -62,7 +62,7 @@ class DataUsageQuery {
     fun getMissingPermissions(context: Context): List<PermissionHelper.Permission> {
         val requiredPermissions = listOf(
             PermissionHelper.Permission.USAGE_ACCESS,
-            PermissionHelper.Permission.PHONE_STATE
+            PermissionHelper.Permission.READ_PHONE_STATE
         )
         return PermissionHelper.getMissingPermissions(context, requiredPermissions)
     }

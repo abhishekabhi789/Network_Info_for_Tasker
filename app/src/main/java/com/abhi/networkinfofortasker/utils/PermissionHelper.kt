@@ -102,7 +102,7 @@ object PermissionHelper {
             { context -> hasUsagePermission(context) },
             { context -> askUsagePermission(context as Context) }
         ),
-        PHONE_STATE(
+        READ_PHONE_STATE(
             "missing phone access",
             { context ->
                 checkPermissionWithContextCompat(

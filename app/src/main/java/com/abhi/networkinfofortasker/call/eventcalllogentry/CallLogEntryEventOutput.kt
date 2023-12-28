@@ -8,7 +8,7 @@ import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputObject
 import com.joaomgcd.taskerpluginlibrary.output.TaskerOutputVariable
 
 @TaskerInputRoot
-@TaskerOutputObject()
+@TaskerOutputObject
 class CallLogEntryEventOutput @JvmOverloads constructor(
     @SuppressLint("NonConstantResourceId") @field:TaskerInputField("cle_number") @get:TaskerOutputVariable(
         "cle_number",

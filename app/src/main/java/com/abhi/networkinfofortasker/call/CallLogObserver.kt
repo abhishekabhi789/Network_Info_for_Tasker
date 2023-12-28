@@ -65,6 +65,6 @@ class CallLogObserver(private val mContext: Context, handler: Handler?) :
     }
 
     companion object {
-        val neededPermission = PermissionHelper.Permission.READ_CALL_LOG
+        val neededPermission = listOf(PermissionHelper.Permission.READ_CALL_LOG,PermissionHelper.Permission.READ_PHONE_STATE)
     }
 }
