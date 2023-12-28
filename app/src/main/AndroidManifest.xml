@@ -54,10 +54,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".wifi.actionnewwifi.NewWifiConfig"
+            android:name=".wifi.actionaddorremovewifi.AddOrRemoveWifiConfig"
             android:exported="true"
             android:icon="@mipmap/ic_launcher"
-            android:label="Add new WiFi"
+            android:label="Add or Remove WiFi"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />

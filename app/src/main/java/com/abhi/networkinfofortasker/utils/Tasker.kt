@@ -8,7 +8,7 @@ import com.abhi.networkinfofortasker.datausage.actionusagequery.DataUsageActionH
 import com.abhi.networkinfofortasker.siminfo.actioninfoquery.SimInfoActionHelper
 import com.abhi.networkinfofortasker.utils.Dialogue.showSingleChoiceDialog
 import com.abhi.networkinfofortasker.utils.Dialogue.toToast
-import com.abhi.networkinfofortasker.wifi.actionnewwifi.NewWIfiHelper
+import com.abhi.networkinfofortasker.wifi.actionaddorremovewifi.AddOrRemoveWIfiHelper
 
 object Tasker {
     /**Save Action configuration after validating*/
@@ -28,7 +28,7 @@ object Tasker {
         val helper = when (taskerHelper) {
             is DataUsageActionHelper -> taskerHelper
             is SimInfoActionHelper -> taskerHelper
-            is NewWIfiHelper -> taskerHelper
+            is AddOrRemoveWIfiHelper -> taskerHelper
             else -> return
         }
         if (helper.onBackPressed().success) {
@@ -42,7 +42,7 @@ object Tasker {
         val helper = when (taskerHelper) {
             is DataUsageActionHelper -> taskerHelper
             is SimInfoActionHelper -> taskerHelper
-            is NewWIfiHelper -> taskerHelper
+            is AddOrRemoveWIfiHelper -> taskerHelper
             else -> return
         }
         val relevantVariables = helper.relevantVariables.toList()
