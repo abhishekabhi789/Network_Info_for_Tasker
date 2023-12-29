@@ -14,6 +14,14 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--    Required to add new wifi on devices below Q-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!--    Bluetooth tethering-->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission
+        android:name="android.permission.WRITE_SETTINGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:allowBackup="true"
@@ -63,7 +71,16 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".bluetooth.actionBluetoothTethering.ToggleBTTetheringConfig"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Toggle BT Tethering"
+            android:theme="@style/AppTheme">
+            <intent-filter>
+                <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
+            </intent-filter>
+        </activity>
         <receiver
             android:name=".siminfo.eventdatasimchanged.DataSimChangeReceiver"
             android:exported="true">

@@ -39,5 +39,8 @@
     <string name="password">Password</string>
     <string name="ssid">SSID</string>
     <string name="remove_network">Remove this network</string>
+    <!--    Bluetooth Tether-->
+    <string name="toggle_bluetooth_tethering">Toggle Bluetooth Tethering</string>
+    <string name="turn_on_tethering">Turn on Tethering</string>
 
 </resources>

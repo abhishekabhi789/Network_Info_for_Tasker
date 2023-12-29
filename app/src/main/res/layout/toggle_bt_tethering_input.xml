@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="8dp"
+    tools:context=".bluetooth.actionBluetoothTethering.ToggleBTTetheringConfig">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/turn_on_bt_tethering_title"
+        style="@style/textViewStyle"
+        android:text="@string/toggle_bluetooth_tethering"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/should_turn_on_switch"
+        style="@style/switchStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/turn_on_tethering"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/turn_on_bt_tethering_title" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/save_config_button"
+        style="@style/buttonStyle"
+        android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:text="@string/save_config_button_text"
+        android:textColor="?android:textColorPrimaryInverse"
+        android:textSize="@dimen/main_text_size"
+        app:boxCornerRadiusBottomEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusBottomStart="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopEnd="@dimen/boxCornerRadius"
+        app:boxCornerRadiusTopStart="@dimen/boxCornerRadius"
+        app:icon="@drawable/ic_done"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/should_turn_on_switch" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.widget.EditText
 import android.widget.Toast
 import com.abhi.networkinfofortasker.R
+import com.abhi.networkinfofortasker.bluetooth.actionBluetoothTethering.ToggleBTTetheringHelper
 import com.abhi.networkinfofortasker.datausage.actionusagequery.DataUsageActionHelper
 import com.abhi.networkinfofortasker.siminfo.actioninfoquery.SimInfoActionHelper
 import com.abhi.networkinfofortasker.utils.Dialogue.showSingleChoiceDialog
@@ -29,6 +30,7 @@ object Tasker {
             is DataUsageActionHelper -> taskerHelper
             is SimInfoActionHelper -> taskerHelper
             is AddOrRemoveWIfiHelper -> taskerHelper
+            is ToggleBTTetheringHelper -> taskerHelper
             else -> return
         }
         if (helper.onBackPressed().success) {

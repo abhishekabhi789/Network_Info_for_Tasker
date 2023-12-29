@@ -50,12 +50,12 @@ object PermissionHelper {
 
     private fun askPermissionWithActivityCompat(
         context: Any,
-        permissions: Array<String>
+        permissions: String
     ) {
         when (context) {
             is Activity -> ActivityCompat.requestPermissions(
                 context,
-                permissions,
+                arrayOf(permissions),
                 123
             )
 
@@ -95,7 +95,7 @@ object PermissionHelper {
     enum class Permission(
         val errorMessage: String,
         val checkPermission: (Context) -> Boolean,
-        val requestPermission: (Any) -> Unit //runner context is not usable with ActivityCompat
+        val requestPermission: (Any) -> Unit
     ) {
         USAGE_ACCESS(
             "missing usage access",
@@ -118,9 +118,18 @@ object PermissionHelper {
             { context ->
                 askPermissionWithActivityCompat(
                     context,
-                    arrayOf(Manifest.permission.READ_PHONE_STATE)
+                    Manifest.permission.READ_PHONE_STATE
                 )
             }
         ),
+        WRITE_SETTINGS("missing write settings permission", { context ->
+            Settings.System.canWrite(context)
+        }, { context ->
+            openPermissionSettingsPage(
+                context as Context,
+                Settings.ACTION_MANAGE_WRITE_SETTINGS
+            )
+        })
+
     }
 }
