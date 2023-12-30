@@ -81,8 +81,7 @@
         </receiver>
         <service
             android:name=".call.PhoneStateService"
-            android:exported="true" />
-
+            android:exported="false" />
     </application>
 
 </manifest>

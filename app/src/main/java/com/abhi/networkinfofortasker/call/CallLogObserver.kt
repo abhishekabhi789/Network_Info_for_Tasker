@@ -6,6 +6,7 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
 import android.provider.CallLog
+import android.util.Log
 import com.abhi.networkinfofortasker.call.eventcalllogentry.CallLogEntryEventConfig
 import com.abhi.networkinfofortasker.call.eventcalllogentry.CallLogEntryEventOutput
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
@@ -15,6 +16,7 @@ import com.joaomgcd.taskerpluginlibrary.extensions.requestQuery
 
 class CallLogObserver(private val mContext: Context, handler: Handler?) :
     ContentObserver(handler) {
+    private val TAG = javaClass.simpleName
     override fun onChange(selfChange: Boolean, uri: Uri?) {
         super.onChange(selfChange, uri)
         if (uri != null && uri == CallLog.Calls.CONTENT_URI) {
@@ -40,13 +42,14 @@ class CallLogObserver(private val mContext: Context, handler: Handler?) :
             val timeStamp = cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DATE))
             val subscriptionId =
                 cursor.getInt(cursor.getColumnIndex(CallLog.Calls.PHONE_ACCOUNT_ID))
-            CallLogEntryEventOutput(
-                number,
-                name,
-                getCallType(type),
-                timeStamp,
-                SimInfoQuery().getSimIndexFromSubscriptionId(context, subscriptionId) + 1
+            val simIndex: Int =
+                SimInfoQuery().getSimIndexFromSubscriptionId(context, subscriptionId)
+            val realSimIndex = if (simIndex >= 0) simIndex + 1 else null
+            Log.d(
+                TAG,
+                "getLastCallDetails: subsciptionId: $subscriptionId | simIndex: $simIndex | realSimIndex: $realSimIndex"
             )
+            CallLogEntryEventOutput(number, name, getCallType(type), timeStamp, realSimIndex)
         } else null
     }
 

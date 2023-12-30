@@ -33,5 +33,5 @@ class CallLogEntryEventOutput @JvmOverloads constructor(
         "cle_sim_index",
         R.string.cle_label_sim_index,
         R.string.cle_html_label_sim_index
-    ) val simIndex: Int? = 0
+    ) val simIndex: Int? = null
 )
