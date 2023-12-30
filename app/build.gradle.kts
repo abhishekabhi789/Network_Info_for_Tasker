@@ -12,7 +12,8 @@ android {
     defaultConfig {
         applicationId = "com.abhi.networkinfofortasker"
         minSdk = 23
-        targetSdk = 34
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk = 25
         versionCode = 10
         versionName = "0.1"
         archivesName = "NetworkInfo4Tasker-v$versionName"

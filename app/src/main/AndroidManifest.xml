@@ -9,8 +9,9 @@
         tools:ignore="ProtectedPermissions" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-<!--    Permission for calllog related-->
-    <uses-permission android:name="android.permission.READ_CALL_LOG"/>
+    <!-- Permission for calllog related -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -68,6 +69,20 @@
                 <action android:name="android.telephony.action.DEFAULT_SUBSCRIPTION_CHANGED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".call.PhoneStateReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+            </intent-filter>
+        </receiver>
+        <service
+            android:name=".call.PhoneStateService"
+            android:exported="true" />
+
     </application>
 
 </manifest>

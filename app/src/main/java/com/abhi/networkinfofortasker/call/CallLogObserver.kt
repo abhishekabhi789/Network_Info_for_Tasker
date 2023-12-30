@@ -6,7 +6,6 @@ import android.database.ContentObserver
 import android.net.Uri
 import android.os.Handler
 import android.provider.CallLog
-import android.util.Log
 import com.abhi.networkinfofortasker.call.eventcalllogentry.CallLogEntryEventConfig
 import com.abhi.networkinfofortasker.call.eventcalllogentry.CallLogEntryEventOutput
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
@@ -41,13 +40,12 @@ class CallLogObserver(private val mContext: Context, handler: Handler?) :
             val timeStamp = cursor.getLong(cursor.getColumnIndex(CallLog.Calls.DATE))
             val subscriptionId =
                 cursor.getInt(cursor.getColumnIndex(CallLog.Calls.PHONE_ACCOUNT_ID))
-            Log.d("subid", "getLastCallDetails: $subscriptionId")
             CallLogEntryEventOutput(
                 number,
                 name,
                 getCallType(type),
                 timeStamp,
-                SimInfoQuery().getSimIndexFromSubscriptionId(context, subscriptionId)
+                SimInfoQuery().getSimIndexFromSubscriptionId(context, subscriptionId) + 1
             )
         } else null
     }
@@ -65,6 +63,9 @@ class CallLogObserver(private val mContext: Context, handler: Handler?) :
     }
 
     companion object {
-        val neededPermission = listOf(PermissionHelper.Permission.READ_CALL_LOG,PermissionHelper.Permission.READ_PHONE_STATE)
+        val neededPermission = listOf(
+            PermissionHelper.Permission.READ_CALL_LOG,
+            PermissionHelper.Permission.READ_PHONE_STATE
+        )
     }
 }
