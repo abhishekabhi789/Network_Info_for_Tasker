@@ -23,7 +23,7 @@ A plugin for tasker to get some data about network.<br>
     - SIM used for data connection
 
 3. Add New WiFI
-    - Add a new network to the device (For Android Q and above, user approval is required, and won't be listed in saved networks [See why?](https://developer.android.com/about/versions/10/privacy/changes#configure-wifi))
+    - Add a new network to the device <!--(For Android Q and above, user approval is required, and won't be listed in saved networks [See why?](https://developer.android.com/about/versions/10/privacy/changes#configure-wifi))-->
 
     - Remove a network. (Only networks added by the app itself)
 

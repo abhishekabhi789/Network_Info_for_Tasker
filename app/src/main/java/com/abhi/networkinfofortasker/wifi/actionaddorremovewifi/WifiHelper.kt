@@ -81,7 +81,10 @@ class WifiHelper {
         try {
             val wifiConfig = WifiConfiguration()
             wifiConfig.SSID = "\"" + ssid + "\""
-            wifiConfig.preSharedKey = "\"" + password + "\""
+            if (password == null) {
+                wifiConfig.allowedKeyManagement.set(WifiConfiguration.KeyMgmt.NONE)
+            } else
+                wifiConfig.preSharedKey = "\"" + password + "\""
             val netId = wifiManager.addNetwork(wifiConfig)
             status = if (shouldRemove) {
                 val isRemoved = wifiManager.removeNetwork(netId)
