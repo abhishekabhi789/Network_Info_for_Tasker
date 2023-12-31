@@ -27,10 +27,19 @@ class WifiHelper {
             connectByOldMethod(wifiManager, ssid, password, shouldRemove)
         } else {
             if (!wifiManager.isWifiEnabled) {
-                ActionStatus.WIFI_DISABLED
-            } else {
-                connectQAndAbove(wifiManager, ssid, password, shouldRemove)
+                wifiManager.setWifiEnabled(true)
+                Log.d(TAG, "addOrRemoveNetwork: Turning on wifi")
+                val startTime = System.currentTimeMillis()
+                val maxWaitTime = 10000L
+                while (!wifiManager.isWifiEnabled) {
+                    if (System.currentTimeMillis() - startTime > maxWaitTime) {
+                        Log.e(TAG, "addOrRemoveNetwork: WiFi didn't enable in time.")
+                        return ActionStatus.WIFI_DISABLED
+                    }
+                    Thread.sleep(100)
+                }
             }
+            connectQAndAbove(wifiManager, ssid, password, shouldRemove)
         }
     }
 
