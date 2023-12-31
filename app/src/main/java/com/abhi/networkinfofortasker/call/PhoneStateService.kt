@@ -31,6 +31,7 @@ class PhoneStateService : Service() {
     }
 
     private fun startCallLogObserver(context: Context) {
+        Log.d(TAG, "startCallLogObserver: attaching observer")
         callLogObserver = CallLogObserver(context, Handler())
         context.contentResolver.registerContentObserver(
             CallLog.Calls.CONTENT_URI,
@@ -40,6 +41,7 @@ class PhoneStateService : Service() {
             }
 
     private fun stopCallLogObserver(context: Context) {
+        Log.d(TAG, "stopCallLogObserver: detaching observer")
         context.contentResolver.unregisterContentObserver(callLogObserver as ContentObserver)
     }
 }

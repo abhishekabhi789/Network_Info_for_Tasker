@@ -77,8 +77,10 @@
                 <action android:name="android.intent.action.PHONE_STATE" />
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
                 <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
             </intent-filter>
         </receiver>
+
         <service
             android:name=".call.PhoneStateService"
             android:exported="false" />

@@ -19,11 +19,13 @@ class PhoneStateReceiver : BroadcastReceiver() {
                 TelephonyManager.ACTION_PHONE_STATE_CHANGED -> startService(context)
                 Intent.ACTION_AIRPLANE_MODE_CHANGED -> dealWithAirplaneMode(context)
                 Intent.ACTION_BOOT_COMPLETED -> startService(context)
+                Intent.ACTION_MY_PACKAGE_REPLACED -> startService(context)
             }
         }
     }
 
     private fun startService(context: Context?) {
+        Log.d(TAG, "startService: starting service")
         val serviceIntent = Intent(context, PhoneStateService::class.java)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context?.startForegroundService(serviceIntent)
@@ -33,6 +35,7 @@ class PhoneStateReceiver : BroadcastReceiver() {
     }
 
     private fun stopService(context: Context?) {
+        Log.d(TAG, "stopService: stopping service")
         context?.stopService(Intent(context, PhoneStateService::class.java))
     }
 
