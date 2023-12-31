@@ -39,7 +39,8 @@ class WifiHelper {
                     Thread.sleep(100)
                 }
             }
-            connectQAndAbove(wifiManager, ssid, password, shouldRemove)
+//            connectQAndAbove(wifiManager, ssid, password, shouldRemove)
+            connectByOldMethod(wifiManager, ssid, password, shouldRemove)
         }
     }
 
