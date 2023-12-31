@@ -13,7 +13,6 @@ import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 class SimInfoActionConfig : Activity(), TaskerPluginConfig<SimInfoActionInput> {
     private lateinit var binding: SimInfoActionInputBinding
     private val taskerHelper by lazy { SimInfoActionHelper(this) }
-    private val simInfoQuery by lazy { SimInfoQuery() }
     override val context: Context get() = applicationContext
     override val inputForTasker: TaskerInput<SimInfoActionInput>
         get() = TaskerInput(
@@ -38,17 +37,13 @@ class SimInfoActionConfig : Activity(), TaskerPluginConfig<SimInfoActionInput> {
         setContentView(binding.root)
         taskerHelper.onCreate()
         binding.saveConfigButton.setOnClickListener {
-            saveConfig(
-                this,
-                taskerHelper,
-                simInfoQuery.getMissingPermissions(this)
-            )
+            saveConfig(this, taskerHelper, SimInfoQuery.requiredPermissions)
         }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.repeatCount == 0) {
-            saveConfig(this, taskerHelper, simInfoQuery.getMissingPermissions(this))
+            saveConfig(this, taskerHelper, SimInfoQuery.requiredPermissions)
         }
         return super.onKeyDown(keyCode, event)
     }

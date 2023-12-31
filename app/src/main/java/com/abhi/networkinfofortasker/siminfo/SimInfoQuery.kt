@@ -30,7 +30,7 @@ class SimInfoQuery {
         return if (info != null) SimInfo(
             info.displayName.toString(),
             info.number,
-            info.simSlotIndex +1, //tasker needs index starting at zero
+            info.simSlotIndex + 1, //tasker needs index starting at zero
             getSimNameForIndex(index)
         ) else null
     }
@@ -43,7 +43,7 @@ class SimInfoQuery {
         return SimInfo(
             info.displayName.toString(),
             info.number,
-            info.simSlotIndex +1,
+            info.simSlotIndex + 1,
             getSimNameForIndex(info.simSlotIndex)
         )
     }
@@ -77,8 +77,7 @@ class SimInfoQuery {
         return -1
     }
 
-    fun getMissingPermissions(context: Context): List<PermissionHelper.Permission> {
+    companion object {
         val requiredPermissions = listOf(PermissionHelper.Permission.PHONE_STATE)
-        return PermissionHelper.getMissingPermissions(context, requiredPermissions)
     }
 }

@@ -15,7 +15,6 @@ import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
 
 class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInput> {
     private lateinit var binding: DataUsageActionInputBinding
-    private val dataUsageQuery by lazy { DataUsageQuery() }
     private val taskerHelper by lazy { DataUsageActionHelper(this) }
     override val context: Context get() = applicationContext
     override val inputForTasker: TaskerInput<DataUsageActionInput>
@@ -105,12 +104,14 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
         binding.appListVariableButton.setOnClickListener {
             chooseVariable(this, binding.appListInput.id, taskerHelper)
         }
-        binding.saveConfigButton.setOnClickListener { saveConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this)) }
+        binding.saveConfigButton.setOnClickListener {
+            saveConfig(this, taskerHelper, DataUsageQuery.requiredPermissions)
+        }
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK && event.repeatCount == 0) {
-            saveConfig(this, taskerHelper,dataUsageQuery.getMissingPermissions(this))
+            saveConfig(this, taskerHelper, DataUsageQuery.requiredPermissions)
         }
         return super.onKeyDown(keyCode, event)
     }

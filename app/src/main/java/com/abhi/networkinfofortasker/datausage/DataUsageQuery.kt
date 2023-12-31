@@ -59,12 +59,11 @@ class DataUsageQuery {
         return Pair(totalUp, totalDown)
     }
 
-    fun getMissingPermissions(context: Context): List<PermissionHelper.Permission> {
+    companion object {
         val requiredPermissions = listOf(
             PermissionHelper.Permission.USAGE_ACCESS,
             PermissionHelper.Permission.PHONE_STATE
         )
-        return PermissionHelper.getMissingPermissions(context, requiredPermissions)
     }
 
     enum class QueryMode(val id: String) {
