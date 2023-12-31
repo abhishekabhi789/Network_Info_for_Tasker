@@ -1,10 +1,9 @@
 package com.abhi.networkinfofortasker.siminfo.actioninfoquery
 
 import android.content.Context
-import com.abhi.networkinfofortasker.R
-import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.siminfo.SimInfo
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
+import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.utils.Convert
 import com.joaomgcd.taskerpluginlibrary.action.TaskerPluginRunnerAction
 import com.joaomgcd.taskerpluginlibrary.input.TaskerInput
@@ -18,14 +17,17 @@ class SimInfoActionRunner :
         context: Context,
         input: TaskerInput<SimInfoActionInput>
     ): TaskerPluginResult<SimInfoActionOutput> {
-        val simInfoQuery = SimInfoQuery()
-        val missingPermissions = simInfoQuery.getMissingPermissions(context)
-        if (missingPermissions.isNotEmpty()) {
+        val missingPermission = SimInfoQuery.requiredPermissions
+            .filterNot { it.hasPermission(context) }
+            .map { it.errorMessage }
+
+        if (missingPermission.isNotEmpty()) {
             return TaskerPluginResultErrorWithOutput(
                 1,
-                context.getString(R.string.permissions_missing)
+                missingPermission.joinToString("|")
             )
         }
+        val simInfoQuery = SimInfoQuery()
         val dataMap = mutableMapOf<String, SimInfo?>()
         if (input.regular.chooseSimOne) dataMap[SimSlots.SIM1.name] =
             simInfoQuery.getSimDetails(context, SimSlots.SIM1.index!!)

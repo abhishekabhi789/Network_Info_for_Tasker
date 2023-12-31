@@ -50,12 +50,12 @@ object PermissionHelper {
 
     private fun askPermissionWithActivityCompat(
         context: Any,
-        permissions: Array<String>
+        permissions: String
     ) {
         when (context) {
             is Activity -> ActivityCompat.requestPermissions(
                 context,
-                permissions,
+                arrayOf(permissions),
                 123
             )
 
@@ -70,7 +70,7 @@ object PermissionHelper {
 
         val missingPermissions = mutableListOf<Permission>()
         for (permission in requiredPermissions) {
-            if (!permission.checkPermission(context)) {
+            if (!permission.hasPermission(context)) {
                 missingPermissions.add(permission)
             }
         }
@@ -80,7 +80,7 @@ object PermissionHelper {
     fun askMissingPermissions(context: Context, missingPermissions: List<Permission>): String {
         for (permission in missingPermissions) {
             "Error: ${permission.errorMessage}".toToast(context)
-            permission.requestPermission(context)
+            permission.askPermission(context)
         }
         return missingPermissions.joinToString(", ") { it.errorMessage }
     }
@@ -94,32 +94,23 @@ object PermissionHelper {
 
     enum class Permission(
         val errorMessage: String,
-        val checkPermission: (Context) -> Boolean,
-        val requestPermission: (Any) -> Unit //runner context is not usable with ActivityCompat
+        val hasPermission: (Context) -> Boolean,
+        val askPermission: (Context) -> Unit
     ) {
         USAGE_ACCESS(
             "missing usage access",
             { context -> hasAppOpsPermission(context, AppOpsManager.OPSTR_GET_USAGE_STATS) },
             { context ->
-                openPermissionSettingsPage(
-                    context as Context,
-                    Settings.ACTION_USAGE_ACCESS_SETTINGS
-                )
+                openPermissionSettingsPage(context, Settings.ACTION_USAGE_ACCESS_SETTINGS)
             }
         ),
         PHONE_STATE(
             "missing phone access",
             { context ->
-                checkPermissionWithContextCompat(
-                    context,
-                    Manifest.permission.READ_PHONE_STATE
-                )
+                checkPermissionWithContextCompat(context, Manifest.permission.READ_PHONE_STATE)
             },
             { context ->
-                askPermissionWithActivityCompat(
-                    context,
-                    arrayOf(Manifest.permission.READ_PHONE_STATE)
-                )
+                askPermissionWithActivityCompat(context, Manifest.permission.READ_PHONE_STATE)
             }
         ),
     }

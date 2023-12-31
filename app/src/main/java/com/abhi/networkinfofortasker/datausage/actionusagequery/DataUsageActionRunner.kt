@@ -3,10 +3,9 @@ package com.abhi.networkinfofortasker.datausage.actionusagequery
 import android.content.Context
 import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
-import com.abhi.networkinfofortasker.R
-import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.datausage.DataUsage
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
+import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.utils.Convert
 import com.abhi.networkinfofortasker.utils.TimeUtils.getStartTimeForThisMonth
 import com.abhi.networkinfofortasker.utils.TimeUtils.getStartTimeForToday
@@ -22,15 +21,16 @@ class DataUsageActionRunner :
         context: Context,
         input: TaskerInput<DataUsageActionInput>
     ): TaskerPluginResult<DataUsageActionOutput> {
-        val networkStatManager = DataUsageQuery()
-        val missingPermissions = networkStatManager.getMissingPermissions(context)
-        if (missingPermissions.isNotEmpty()) {
+        val missingPermission = DataUsageQuery.requiredPermissions
+            .filterNot { it.hasPermission(context) }
+            .map { it.errorMessage }
+
+        if (missingPermission.isNotEmpty()) {
             return TaskerPluginResultErrorWithOutput(
                 1,
-                context.getString(R.string.permissions_missing)
+                missingPermission.joinToString("|")
             )
         }
-
         val startTime: Long = when (input.regular.queryMode) {
             DataUsageQuery.QueryMode.TODAY.id -> getStartTimeForToday()
             DataUsageQuery.QueryMode.THIS_MONTH.id -> getStartTimeForThisMonth()
@@ -53,6 +53,7 @@ class DataUsageActionRunner :
                 }
             } else null
 
+        val networkStatManager = DataUsageQuery()
         if (input.regular.appPackages.isNullOrEmpty()) {
             val (bytesUp, bytesDown) = networkStatManager.getDeviceUsage(
                 context,

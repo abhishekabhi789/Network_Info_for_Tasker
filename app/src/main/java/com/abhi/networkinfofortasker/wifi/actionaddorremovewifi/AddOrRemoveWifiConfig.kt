@@ -38,23 +38,14 @@ class AddOrRemoveWifiConfig : Activity(), TaskerPluginConfig<AddOrRemoveWifiInpu
         setContentView(binding.root)
         taskerHelper.onCreate()
         binding.chooseSsidVariableButton.setOnClickListener {
-            chooseVariable(
-                this,
-                binding.wifiSsidInput.id,
-                taskerHelper
-            )
+            chooseVariable(this, binding.wifiSsidInput.id, taskerHelper)
         }
         binding.choosePasswordVariableButton.setOnClickListener {
-            chooseVariable(
-                this,
-                binding.wifiPasswordInput.id,
-                taskerHelper
-            )
+            chooseVariable(this, binding.wifiPasswordInput.id, taskerHelper)
         }
         binding.saveConfigButton.setOnClickListener {
             saveConfig(this, taskerHelper, null)
         }
-
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

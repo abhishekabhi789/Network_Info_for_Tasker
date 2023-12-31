@@ -3,10 +3,7 @@ package com.abhi.networkinfofortasker.wifi.actionaddorremovewifi
 import android.content.Context
 import android.net.wifi.WifiConfiguration
 import android.net.wifi.WifiManager
-import android.net.wifi.WifiNetworkSuggestion
-import android.os.Build
 import android.util.Log
-import androidx.annotation.RequiresApi
 
 
 class WifiHelper {
@@ -23,27 +20,24 @@ class WifiHelper {
         shouldRemove: Boolean
     ): ActionStatus {
         val wifiManager = getWiFiManager(context)
-        return if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-            connectByOldMethod(wifiManager, ssid, password, shouldRemove)
-        } else {
-            if (!wifiManager.isWifiEnabled) {
-                wifiManager.setWifiEnabled(true)
-                Log.d(TAG, "addOrRemoveNetwork: Turning on wifi")
-                val startTime = System.currentTimeMillis()
-                val maxWaitTime = 10000L
-                while (!wifiManager.isWifiEnabled) {
-                    if (System.currentTimeMillis() - startTime > maxWaitTime) {
-                        Log.e(TAG, "addOrRemoveNetwork: WiFi didn't enable in time.")
-                        return ActionStatus.WIFI_DISABLED
-                    }
-                    Thread.sleep(100)
+        if (!wifiManager.isWifiEnabled) {
+            wifiManager.setWifiEnabled(true)
+            Log.d(TAG, "addOrRemoveNetwork: Turning on wifi")
+            val startTime = System.currentTimeMillis()
+            val maxWaitTime = 10000L
+            while (!wifiManager.isWifiEnabled) {
+                if (System.currentTimeMillis() - startTime > maxWaitTime) {
+                    Log.e(TAG, "addOrRemoveNetwork: WiFi didn't enable in time.")
+                    return ActionStatus.WIFI_DISABLED
                 }
+                Thread.sleep(100)
             }
-//            connectQAndAbove(wifiManager, ssid, password, shouldRemove)
-            connectByOldMethod(wifiManager, ssid, password, shouldRemove)
         }
+        return connectByOldMethod(wifiManager, ssid, password, shouldRemove)
     }
 
+
+    /**Since the app now targets old sdk version, this new method is not needed.*//*
     @RequiresApi(Build.VERSION_CODES.Q)
     private fun connectQAndAbove(
         wifiManager: WifiManager,
@@ -72,7 +66,7 @@ class WifiHelper {
                 ActionStatus.FAILED
             }
         }
-    }
+    }*/
 
     private fun connectByOldMethod(
         wifiManager: WifiManager, ssid: String, password: String?, shouldRemove: Boolean
@@ -86,6 +80,8 @@ class WifiHelper {
             } else
                 wifiConfig.preSharedKey = "\"" + password + "\""
             val netId = wifiManager.addNetwork(wifiConfig)
+            //This method will add the network to retrieve the netId inorder to remove it.
+            //Because wifiManager.configuredNetworks returns nothing, may be due to context issue
             status = if (shouldRemove) {
                 val isRemoved = wifiManager.removeNetwork(netId)
                 if (isRemoved) ActionStatus.SUCCESS else ActionStatus.FAILED
