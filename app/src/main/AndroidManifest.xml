@@ -14,6 +14,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <!--    Required to add new wifi on devices below Q-->
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <!-- Permission for calllog related -->
+    <uses-permission android:name="android.permission.READ_CALL_LOG" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:allowBackup="true"
@@ -63,6 +66,16 @@
                 <action android:name="com.twofortyfouram.locale.intent.action.EDIT_SETTING" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".call.eventcalllogentry.CallLogEntryEventConfig"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher"
+            android:label="Call Log Entry"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="net.dinglisch.android.tasker.ACTION_EDIT_EVENT" />
+            </intent-filter>
+        </activity>
 
         <receiver
             android:name=".siminfo.eventdatasimchanged.DataSimChangeReceiver"
@@ -71,6 +84,21 @@
                 <action android:name="android.telephony.action.DEFAULT_SUBSCRIPTION_CHANGED" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".call.PhoneStateReceiver"
+            android:enabled="true"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.AIRPLANE_MODE" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".call.PhoneStateService"
+            android:exported="false" />
     </application>
 
 </manifest>

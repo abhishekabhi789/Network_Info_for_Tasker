@@ -1,6 +1,5 @@
 package com.abhi.networkinfofortasker.utils
 
-import android.Manifest
 import android.app.Activity
 import android.app.AppOpsManager
 import android.content.Context
@@ -104,14 +103,30 @@ object PermissionHelper {
                 openPermissionSettingsPage(context, Settings.ACTION_USAGE_ACCESS_SETTINGS)
             }
         ),
-        PHONE_STATE(
+        READ_PHONE_STATE(
             "missing phone access",
             { context ->
-                checkPermissionWithContextCompat(context, Manifest.permission.READ_PHONE_STATE)
+                checkPermissionWithContextCompat(
+                    context,
+                    Manifest.permission.READ_PHONE_STATE
+                )
             },
             { context ->
-                askPermissionWithActivityCompat(context, Manifest.permission.READ_PHONE_STATE)
+                askPermissionWithActivityCompat(
+                    context,
+                    arrayOf(Manifest.permission.READ_PHONE_STATE)
+                )
             }
         ),
+        READ_CALL_LOG(
+            "missing call log read permission",
+            { context ->
+                checkPermissionWithContextCompat(context, Manifest.permission.READ_CALL_LOG)
+
+            },
+            { context ->
+                askPermissionWithActivityCompat(context, arrayOf(Manifest.permission.READ_CALL_LOG))
+            }
+        )
     }
 }

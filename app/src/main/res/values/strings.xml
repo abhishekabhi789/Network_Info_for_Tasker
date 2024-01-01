@@ -40,4 +40,17 @@
     <string name="ssid">SSID</string>
     <string name="remove_network">Remove this network</string>
 
+    <!--    Call log-->
+    <!--    Call log IO-->
+    <string name="cle_label_phone_number">Phone Number</string>
+    <string name="cle_html_label_phone_number">Phone number of the event</string>
+    <string name="cle_label_name">Contact Name</string>
+    <string name="cle_html_label_name">Name if available</string>
+    <string name="cle_label_type">Call Type</string>
+    <string name="cle_html_label_type">Direction of the call</string>
+    <string name="cle_label_time">Call Time</string>
+    <string name="cle_html_label_time">Timestamp of the call</string>
+    <string name="cle_label_sim_index">Sim Index</string>
+    <string name="cle_html_label_sim_index">Slot index of the sim</string>
+<!--    Data Usage IO-->
 </resources>

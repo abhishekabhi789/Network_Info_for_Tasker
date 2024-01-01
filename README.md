@@ -29,3 +29,4 @@ A plugin for tasker to get some data about network.<br>
 
 ### Events
 - Data Sim Toggled
+- Call Log Entry
