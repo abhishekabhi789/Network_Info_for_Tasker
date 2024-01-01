@@ -11,7 +11,7 @@ A plugin for tasker to get some data about network.<br>
 
 
 ## :bulb: Features
- ### Actions
+### Actions
 1. Data Usage Query
     - SIM or Wi-Fi
     - SIM wise
@@ -27,6 +27,11 @@ A plugin for tasker to get some data about network.<br>
 
     - Remove a network. (Only networks added by the app itself)
 
+
+
+
 ### Events
-- Data Sim Toggled
-- Call Log Entry
+
+1. Data Sim Toggled
+
+2. Call Log Entry

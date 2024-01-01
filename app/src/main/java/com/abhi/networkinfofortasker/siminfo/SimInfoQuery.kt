@@ -78,7 +78,7 @@ class SimInfoQuery {
     }
 
     companion object {
-        val requiredPermissions = listOf(PermissionHelper.Permission.PHONE_STATE)
+        val requiredPermissions = listOf(PermissionHelper.Permission.READ_PHONE_STATE)
     }
 
     @SuppressLint("MissingPermission")

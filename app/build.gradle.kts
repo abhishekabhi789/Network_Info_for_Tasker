@@ -14,8 +14,8 @@ android {
         minSdk = 23
         //noinspection ExpiredTargetSdkVersion
         targetSdk = 25
-        versionCode = 20
-        versionName = "0.2"
+        versionCode = 30
+        versionName = "0.3"
         archivesName = "NetworkInfo4Tasker-v$versionName"
     }
 
