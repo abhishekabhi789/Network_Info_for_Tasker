@@ -21,9 +21,9 @@
     <string name="choose_a_sim_slot">Choose a sim slot</string>
     <string name="mobile">Mobile</string>
     <string name="wi_fi">Wi-Fi</string>
+    <string name="sim_default_data">SIM Data Default</string>
     <string name="sim_1">SIM 1</string>
     <string name="sim_2">SIM 2</string>
-    <string name="default_data_sim">Default Data SIM</string>
     <!--    Data Usage IO-->
     <string name="du_label_data_usage">Data Usage</string>
     <string name="du_html_label_data_usage">Data usage as a JSON string</string>

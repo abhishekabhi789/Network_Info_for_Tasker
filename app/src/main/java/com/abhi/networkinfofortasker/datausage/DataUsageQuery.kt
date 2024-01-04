@@ -23,8 +23,10 @@ class DataUsageQuery {
             )
             totalUp += bucket.txBytes
             totalDown += bucket.rxBytes
-        } catch (e: RemoteException) {
-            e.printStackTrace()
+        } catch (e1: RemoteException) {
+            e1.printStackTrace()
+        } catch (e2: SecurityException) {
+            e2.printStackTrace()
         }
         return Pair(totalUp, totalDown)
     }

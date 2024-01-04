@@ -58,7 +58,7 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
                     )
                 )
             } else if (networkType == NetworkType.MOBILE.id) binding.simSlots.check(
-                binding.simSlot1.id
+                binding.simSlotDefaultData.id
             )
             binding.startTimeInput.setText(startTime)
             binding.endTimeInput.setText(endTime)
@@ -92,10 +92,12 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
             when (checkedId) {
                 binding.networkTypeMobile.id -> {
                     binding.simSlotSelection.visibility = View.VISIBLE
-                    binding.simSlots.check(chosenSlot ?: binding.simSlot1.id)
+                    binding.simSlots.check(chosenSlot ?: binding.simSlotDefaultData.id)
                 }
-
-                else -> binding.simSlotSelection.visibility = View.GONE
+                else -> {
+                    chosenSlot = binding.simSlots.checkedRadioButtonId
+                    binding.simSlotSelection.visibility = View.GONE
+                }
             }
         }
         binding.simSlots.setOnCheckedChangeListener { _, id ->

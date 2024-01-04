@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
 import com.abhi.networkinfofortasker.datausage.DataUsage
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
+import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
 import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.utils.Convert
 import com.abhi.networkinfofortasker.utils.TimeUtils.getStartTimeForThisMonth
@@ -47,8 +48,8 @@ class DataUsageActionRunner :
             if (input.regular.networkType == NetworkType.MOBILE.id) {
                 when (input.regular.chosenSim) {
                     SimSlots.SIM1.id -> SimSlots.SIM1.index
-
                     SimSlots.SIM2.id -> SimSlots.SIM2.index
+                    SimSlots.DEFAULT_DATA.id -> SimInfoQuery().getDataSimOperator(context).slotIndex - 1
                     else -> null
                 }
             } else null

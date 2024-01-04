@@ -38,7 +38,7 @@
             android:id="@+id/sim_slot_default_data"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/default_data_sim" />
+            android:text="@string/sim_default_data" />
     </LinearLayout>
 
     <com.google.android.material.button.MaterialButton
