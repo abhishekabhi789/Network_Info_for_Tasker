@@ -19,7 +19,7 @@
         android:id="@+id/query_mode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/query_mode_title">
 
@@ -200,6 +200,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/app_list_input_layout" />
 
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/uid_choose_title"
+        style="@style/textViewStyle"
+        android:text="Choose custom UIDs"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/app_list_input_layout" />
+
+    <LinearLayout
+        android:id="@+id/uid_choose_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/uid_choose_title">
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/uid_all"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unspecified All" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/uid_removed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Removed" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/uid_tethering"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tethering" />
+    </LinearLayout>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/save_config_button"
         style="@style/buttonStyle"
@@ -216,6 +251,6 @@
         app:icon="@drawable/ic_done"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/app_list_input_layout" />
+        app:layout_constraintTop_toBottomOf="@id/uid_choose_layout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

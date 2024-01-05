@@ -15,7 +15,9 @@ A plugin for tasker to get some data about network.<br>
 1. Data Usage Query
     - SIM or Wi-Fi
     - SIM wise
-    - UID wise
+    - App wise
+    - Tethering
+    - Removed Apps
 
 2. SIM Info Query
     - SIM 1 info

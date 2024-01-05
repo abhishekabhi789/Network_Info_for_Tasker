@@ -25,7 +25,10 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
                 getChosenSimId(),
                 binding.startTimeInput.text.toString(),
                 binding.endTimeInput.text.toString(),
-                binding.appListInput.text.toString().trim()
+                binding.appListInput.text.toString().trim(),
+                binding.uidAll.isChecked,
+                binding.uidRemoved.isChecked,
+                binding.uidTethering.isChecked
             )
         )
 
@@ -63,6 +66,9 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
             binding.startTimeInput.setText(startTime)
             binding.endTimeInput.setText(endTime)
             binding.appListInput.setText(appPackages)
+            binding.uidAll.isChecked = uidAll
+            binding.uidRemoved.isChecked = uidRemoved
+            binding.uidTethering.isChecked = uidTethering
         }
     }
 
@@ -94,6 +100,7 @@ class DataUsageActionConfig : Activity(), TaskerPluginConfig<DataUsageActionInpu
                     binding.simSlotSelection.visibility = View.VISIBLE
                     binding.simSlots.check(chosenSlot ?: binding.simSlotDefaultData.id)
                 }
+
                 else -> {
                     chosenSlot = binding.simSlots.checkedRadioButtonId
                     binding.simSlotSelection.visibility = View.GONE

@@ -15,7 +15,11 @@ class DataUsageActionInput @JvmOverloads constructor(
     @field:TaskerInputField("chosenSim") val chosenSim: String? = null,
     @field:TaskerInputField("startTime") val startTime: String? = null,
     @field:TaskerInputField("endTime") val endTime: String? = null,
-    @field:TaskerInputField("appPackages") val appPackages: String? = null
+    @field:TaskerInputField("appPackages") val appPackages: String? = null,
+    @field:TaskerInputField("uid_all") val uidAll: Boolean = false,
+    @field:TaskerInputField("uid_removed") val uidRemoved: Boolean = false,
+    @field:TaskerInputField("uid_tethering") val uidTethering: Boolean = false
+
 )
 
 @TaskerInputRoot
