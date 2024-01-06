@@ -6,7 +6,7 @@
 <a href="https://developer.android.com/tools/releases/platforms#5.0">
 <img alt="API 23+" src="https://img.shields.io/badge/API-23%2B-brightgreen.svg?style=for-the-badge&color=FF0800" title="Android 6.0 Marshmallow"></a>
 
-A plugin for tasker to get some data about network.<br>
+A plugin aiming to help Tasker to deal with network related stuffs. <br>
 </div>
 
 

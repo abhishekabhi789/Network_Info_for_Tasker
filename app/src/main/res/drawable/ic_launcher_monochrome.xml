@@ -4,25 +4,29 @@
     android:viewportWidth="24"
     android:viewportHeight="24"
     android:name="vector">
-    <group
-        android:scaleX="0.55"
+    <group android:scaleX="0.55"
         android:scaleY="0.55"
         android:translateX="5.4"
         android:translateY="5.4">
         <path
+            android:name="path"
+            android:pathData="M 14.5 10 C 14.5 8.62 13.38 7.5 12 7.5 C 10.62 7.5 9.5 8.62 9.5 10 C 9.5 10.76 9.84 11.42 10.37 11.88 L 7 22 L 9 22 L 9.67 20 L 14.34 20 L 15 22 L 17 22 L 13.63 11.88 C 14.16 11.42 14.5 10.76 14.5 10 Z M 10.33 18 L 12 13 L 13.67 18 L 10.33 18 Z"
+            android:fillColor="#000000"
+            android:strokeWidth="1"/>
+        <path
             android:name="path_1"
-            android:fillColor="@color/grey"
             android:pathData="M 7.3 14.7 L 8.5 13.5 C 7.5 12.5 7 11.2 7 10 C 7 8.7 7.5 7.4 8.5 6.5 L 7.3 5.3 C 6 6.6 5.3 8.3 5.3 10 C 5.3 11.7 6 13.4 7.3 14.7 Z"
-            android:strokeWidth="1" />
+            android:fillColor="#000000"
+            android:strokeWidth="1"/>
         <path
             android:name="path_2"
-            android:fillColor="@color/grey"
             android:pathData="M 6.1 4.1 L 4.9 2.9 C 3 4.9 2 7.4 2 10 C 2 12.6 3 15.1 4.9 17.1 L 6.1 15.9 C 4.5 14.3 3.7 12.1 3.7 10 C 3.7 7.9 4.5 5.7 6.1 4.1 Z M 16.7 14.7 C 18 13.4 18.7 11.7 18.7 10 C 18.6 8.3 18 6.6 16.7 5.3 L 15.5 6.5 C 16.5 7.5 17 8.8 17 10 C 17 11.3 16.5 12.6 15.5 13.5 L 16.7 14.7 Z"
-            android:strokeWidth="1" />
+            android:fillColor="#000000"
+            android:strokeWidth="1"/>
         <path
             android:name="path_3"
-            android:fillColor="@color/grey"
             android:pathData="M 19.1 2.9 L 17.9 4.1 C 19.5 5.7 20.3 7.9 20.3 10 C 20.3 12.1 19.5 14.3 17.9 15.9 L 19.1 17.1 C 21.1 15.1 22 12.6 22 10 C 22 7.4 21 4.9 19.1 2.9 Z"
-            android:strokeWidth="1" />
+            android:fillColor="#000000"
+            android:strokeWidth="1"/>
     </group>
 </vector>
