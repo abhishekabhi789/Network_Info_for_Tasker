@@ -86,7 +86,9 @@ class DataUsageActionRunner :
                 val appName = Convert.uidToAppName(context, uid) ?: uid.toString()
                 uidDataMap[appName] = getUidUsage(uid)
             }
-            dataMap["apps"] = uidDataMap
+            val sortedUidDataMap = uidDataMap.entries.sortedByDescending { it.value.total.toLong() }
+                .associateBy({ it.key }, { it.value })
+            dataMap["apps"] = sortedUidDataMap
         }
         val dataUsageJson = Convert.convertToJson(dataMap)
         return TaskerPluginResultSucess(DataUsageActionOutput(dataUsageJson))
