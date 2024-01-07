@@ -6,6 +6,7 @@ import android.app.usage.NetworkStatsManager
 import android.content.Context
 import android.os.RemoteException
 import com.abhi.networkinfofortasker.utils.PermissionHelper
+import java.util.Locale
 
 
 class DataUsageQuery {
@@ -66,4 +67,11 @@ class DataUsageQuery {
         TODAY("query_mode_today"), THIS_MONTH("query_mode_this_month"), CUSTOM("query_mode_custom_time")
     }
 
+    enum class CustomKeys() {
+        DEVICE, ALL, REMOVED, TETHERING;
+
+        fun getKey(): String {
+            return name.lowercase(Locale.getDefault())
+        }
+    }
 }

@@ -1,10 +1,15 @@
 package com.abhi.networkinfofortasker.datausage
 
 data class DataUsage(
-    val up: String,
+    val up: Long,
     val upFormatted: String,
-    val down: String,
+    val down: Long,
     val downFormatted: String,
-    val total: String,
+    val total: Long,
     val totalFormatted: String
-)
+){
+    data class AppUsage(
+    val appUid:Int,
+    val appPackageName: String,
+    val dataUsage: DataUsage,
+)}

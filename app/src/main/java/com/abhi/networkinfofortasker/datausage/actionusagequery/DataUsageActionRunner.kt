@@ -6,6 +6,7 @@ import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
 import com.abhi.networkinfofortasker.datausage.DataUsage
 import com.abhi.networkinfofortasker.datausage.DataUsageQuery
+import com.abhi.networkinfofortasker.datausage.DataUsageQuery.CustomKeys
 import com.abhi.networkinfofortasker.siminfo.SimInfoQuery
 import com.abhi.networkinfofortasker.siminfo.SimSlots
 import com.abhi.networkinfofortasker.utils.Convert
@@ -65,30 +66,27 @@ class DataUsageActionRunner :
             context, startTime, endTime, networkType, slotIndex
         )
         val deviceDataUsage = getDataUsageObj(deviceUsageBucket)
-        dataMap["device"] = deviceDataUsage
+        dataMap[CustomKeys.DEVICE.getKey()] = deviceDataUsage
         //stage2 querying custom uid data usage
-        if (input.regular.uidAll) {
-            dataMap["all"] = getUidUsage(Bucket.UID_ALL)
-        }
-        if (input.regular.uidRemoved) {
-            dataMap["removed"] = getUidUsage(Bucket.UID_REMOVED)
-        }
-        if (input.regular.uidTethering) {
-            dataMap["tethering"] = getUidUsage(Bucket.UID_TETHERING)
+        input.regular.apply {
+            if (uidAll) dataMap[CustomKeys.ALL.getKey()] = getUidUsage(Bucket.UID_ALL)
+            if (uidRemoved) dataMap[CustomKeys.REMOVED.getKey()] = getUidUsage(Bucket.UID_REMOVED)
+            if (uidTethering) dataMap[CustomKeys.TETHERING.getKey()] =
+                getUidUsage(Bucket.UID_TETHERING)
         }
         val uidList: MutableList<Int> = mutableListOf()
         //stage3 querying app data usage
         if (!input.regular.appPackages.isNullOrEmpty()) {
             val packages = input.regular.appPackages!!.split(",")
             uidList.addAll(packages.mapNotNull { it.trim().toIntOrNull() })
-            val uidDataMap = mutableMapOf<String, DataUsage>()
+            val uidUsageList = mutableListOf<DataUsage.AppUsage>()
             for (uid in uidList) {
-                val appName = Convert.uidToAppName(context, uid) ?: uid.toString()
-                uidDataMap[appName] = getUidUsage(uid)
+                val appPackageName = Convert.uidToAppPackageName(context, uid)
+                val uidUsage = DataUsage.AppUsage(uid, appPackageName, getUidUsage(uid))
+                uidUsageList.add(uidUsage)
             }
-            val sortedUidDataMap = uidDataMap.entries.sortedByDescending { it.value.total.toLong() }
-                .associateBy({ it.key }, { it.value })
-            dataMap["apps"] = sortedUidDataMap
+            uidUsageList.sortByDescending { it.dataUsage.total }
+            dataMap["apps"] = uidUsageList
         }
         val dataUsageJson = Convert.convertToJson(dataMap)
         return TaskerPluginResultSucess(DataUsageActionOutput(dataUsageJson))
@@ -99,12 +97,9 @@ class DataUsageActionRunner :
         val bytesDown = bucket.rxBytes
         val bytesTotal = bytesUp + bytesDown
         return DataUsage(
-            bytesUp.toString(),
-            Convert.bytes(mContext, bytesUp),
-            bytesDown.toString(),
-            Convert.bytes(mContext, bytesDown),
-            bytesTotal.toString(),
-            Convert.bytes(mContext, bytesTotal)
+            bytesUp, Convert.bytes(mContext, bytesUp),
+            bytesDown, Convert.bytes(mContext, bytesDown),
+            bytesTotal, Convert.bytes(mContext, bytesTotal)
         )
     }
 

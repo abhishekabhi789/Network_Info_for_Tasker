@@ -1,6 +1,7 @@
 package com.abhi.networkinfofortasker.utils
 
 import android.content.Context
+import com.google.gson.FieldNamingPolicy
 import com.google.gson.GsonBuilder
 
 
@@ -21,12 +22,16 @@ object Convert {
         }
     }*/
 
-    fun uidToAppName(context: Context, uid: Int): String? {
-        return context.applicationContext.packageManager.getNameForUid(uid)
+    fun uidToAppPackageName(context: Context, uid: Int): String {
+        return context.applicationContext.packageManager.getNameForUid(uid) ?: context.getString(
+            android.R.string.unknownName
+        )
     }
 
     fun convertToJson(output: Any): String {
-        val gson = GsonBuilder().setPrettyPrinting().create()
+        val gson = GsonBuilder().setPrettyPrinting()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .create()
         return gson.toJson(output)
     }
 }
