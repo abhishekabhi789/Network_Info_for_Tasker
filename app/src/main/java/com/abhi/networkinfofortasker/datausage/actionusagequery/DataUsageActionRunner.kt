@@ -1,6 +1,6 @@
 package com.abhi.networkinfofortasker.datausage.actionusagequery
 
-import android.app.usage.NetworkStats
+import android.app.usage.NetworkStats.Bucket
 import android.content.Context
 import android.net.ConnectivityManager
 import com.abhi.networkinfofortasker.NetworkType
@@ -19,9 +19,16 @@ import com.joaomgcd.taskerpluginlibrary.runner.TaskerPluginResultSucess
 
 class DataUsageActionRunner :
     TaskerPluginRunnerAction<DataUsageActionInput, DataUsageActionOutput>() {
+    private lateinit var mContext: Context
+    private lateinit var networkStatManager: DataUsageQuery
+    private var startTime: Long = 0L
+    private var endTime: Long = 0L
+    private var networkType: Int = -1
+    private var slotIndex: Int? = null
     override fun run(
         context: Context, input: TaskerInput<DataUsageActionInput>
     ): TaskerPluginResult<DataUsageActionOutput> {
+        mContext = context
         val missingPermission =
             DataUsageQuery.requiredPermissions.filterNot { it.hasPermission(context) }
                 .map { it.errorMessage }
@@ -31,19 +38,18 @@ class DataUsageActionRunner :
                 1, missingPermission.joinToString("|")
             )
         }
-        val startTime: Long = when (input.regular.queryMode) {
+        startTime = when (input.regular.queryMode) {
             DataUsageQuery.QueryMode.TODAY.id -> getStartTimeForToday()
             DataUsageQuery.QueryMode.THIS_MONTH.id -> getStartTimeForThisMonth()
-            else -> input.regular.startTime!!.toLong()
+            else -> input.regular.startTime?.toLong() ?: System.currentTimeMillis()
         }
-        val endTime: Long =
-            if (input.regular.endTime != null) input.regular.endTime!!.toLong() else System.currentTimeMillis()
-        val networkType: Int = when (input.regular.networkType) {
+        endTime = input.regular.endTime?.toLong() ?: System.currentTimeMillis()
+        networkType = when (input.regular.networkType) {
             NetworkType.MOBILE.id -> ConnectivityManager.TYPE_MOBILE
             NetworkType.WIFI.id -> ConnectivityManager.TYPE_WIFI
             else -> -1
         }
-        val slotIndex: Int? = if (input.regular.networkType == NetworkType.MOBILE.id) {
+        slotIndex = if (input.regular.networkType == NetworkType.MOBILE.id) {
             when (input.regular.chosenSim) {
                 SimSlots.SIM1.id -> SimSlots.SIM1.index
                 SimSlots.SIM2.id -> SimSlots.SIM2.index
@@ -52,61 +58,58 @@ class DataUsageActionRunner :
             }
         } else null
 
-        val networkStatManager = DataUsageQuery()
-        val uidList: MutableList<Int>? = mutableListOf()
-
+        networkStatManager = DataUsageQuery()
+        val dataMap = mutableMapOf<String, Any>()
+        //stage1 querying device data usage
+        val deviceUsageBucket = networkStatManager.getDeviceUsage(
+            context, startTime, endTime, networkType, slotIndex
+        )
+        val deviceDataUsage = getDataUsageObj(deviceUsageBucket)
+        dataMap["device"] = deviceDataUsage
+        //stage2 querying custom uid data usage
+        if (input.regular.uidAll) {
+            dataMap["all"] = getUidUsage(Bucket.UID_ALL)
+        }
+        if (input.regular.uidRemoved) {
+            dataMap["removed"] = getUidUsage(Bucket.UID_REMOVED)
+        }
+        if (input.regular.uidTethering) {
+            dataMap["tethering"] = getUidUsage(Bucket.UID_TETHERING)
+        }
+        val uidList: MutableList<Int> = mutableListOf()
+        //stage3 querying app data usage
         if (!input.regular.appPackages.isNullOrEmpty()) {
             val packages = input.regular.appPackages!!.split(",")
-            uidList?.addAll(packages.mapNotNull { it.trim().toIntOrNull() })
-        }
-        uidList?.apply {
-            if (input.regular.uidAll) add(NetworkStats.Bucket.UID_ALL)
-            if (input.regular.uidRemoved) add(NetworkStats.Bucket.UID_REMOVED)
-            if (input.regular.uidTethering) add(NetworkStats.Bucket.UID_TETHERING)
-        }
-
-        if (uidList.isNullOrEmpty()) {
-            val (bytesUp, bytesDown) = networkStatManager.getDeviceUsage(
-                context, startTime, endTime, networkType, slotIndex
-            )
-            val bytesTotal = bytesUp + bytesDown
-            val dataUsageJson = DataUsage(
-                bytesUp.toString(),
-                Convert.bytes(context, bytesUp),
-                bytesDown.toString(),
-                Convert.bytes(context, bytesDown),
-                bytesTotal.toString(),
-                Convert.bytes(context, bytesTotal)
-            )
-            return TaskerPluginResultSucess(
-                DataUsageActionOutput(Convert.convertToJson(dataUsageJson))
-            )
-        } else {
-            val dataMap = mutableMapOf<String, DataUsage>()
+            uidList.addAll(packages.mapNotNull { it.trim().toIntOrNull() })
+            val uidDataMap = mutableMapOf<String, DataUsage>()
             for (uid in uidList) {
-                val (bytesUp, bytesDown) = networkStatManager.getUidUsage(
-                    context, uid, startTime, endTime, networkType, slotIndex
-                )
-                val bytesTotal = bytesUp + bytesDown
-                val data = DataUsage(
-                    bytesUp.toString(),
-                    Convert.bytes(context, bytesUp),
-                    bytesDown.toString(),
-                    Convert.bytes(context, bytesDown),
-                    bytesTotal.toString(),
-                    Convert.bytes(context, bytesTotal)
-                )
-                val appName = when (uid) {
-                    NetworkStats.Bucket.UID_ALL -> "ALL"
-                    NetworkStats.Bucket.UID_REMOVED -> "REMOVED"
-                    NetworkStats.Bucket.UID_TETHERING -> "TETHERING"
-                    else -> Convert.uidToAppName(context, uid) ?: uid.toString()
-                }
-                dataMap[appName] = data
+                val appName = Convert.uidToAppName(context, uid) ?: uid.toString()
+                uidDataMap[appName] = getUidUsage(uid)
             }
-            return TaskerPluginResultSucess(
-                DataUsageActionOutput(Convert.convertToJson(dataMap))
-            )
+            dataMap["apps"] = uidDataMap
         }
+        val dataUsageJson = Convert.convertToJson(dataMap)
+        return TaskerPluginResultSucess(DataUsageActionOutput(dataUsageJson))
+    }
+
+    private fun getDataUsageObj(bucket: Bucket): DataUsage {
+        val bytesUp = bucket.txBytes
+        val bytesDown = bucket.rxBytes
+        val bytesTotal = bytesUp + bytesDown
+        return DataUsage(
+            bytesUp.toString(),
+            Convert.bytes(mContext, bytesUp),
+            bytesDown.toString(),
+            Convert.bytes(mContext, bytesDown),
+            bytesTotal.toString(),
+            Convert.bytes(mContext, bytesTotal)
+        )
+    }
+
+    private fun getUidUsage(uid: Int): DataUsage {
+        val uidBucket = networkStatManager.getUidUsage(
+            mContext, uid, startTime, endTime, networkType, slotIndex
+        )
+        return getDataUsageObj(uidBucket)
     }
 }

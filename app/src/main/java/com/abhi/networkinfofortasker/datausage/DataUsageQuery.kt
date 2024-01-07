@@ -1,6 +1,7 @@
 package com.abhi.networkinfofortasker.datausage
 
 import android.app.usage.NetworkStats
+import android.app.usage.NetworkStats.Bucket
 import android.app.usage.NetworkStatsManager
 import android.content.Context
 import android.os.RemoteException
@@ -11,24 +12,20 @@ class DataUsageQuery {
 
     fun getDeviceUsage(
         context: Context, startTime: Long, endTime: Long, networkType: Int, slotIndex: Int?
-    ): Pair<Long, Long> {
-        val bucket: NetworkStats.Bucket
+    ): Bucket {
+        var bucket = Bucket()
         val networkStatsManager = context.getSystemService(NetworkStatsManager::class.java)
-        var totalUp = 0L
-        var totalDown = 0L
         try {
             val subscriberId = getSubscriberIdForSim(context, slotIndex)
             bucket = networkStatsManager.querySummaryForDevice(
                 networkType, subscriberId, startTime, endTime
             )
-            totalUp += bucket.txBytes
-            totalDown += bucket.rxBytes
         } catch (e1: RemoteException) {
             e1.printStackTrace()
         } catch (e2: SecurityException) {
             e2.printStackTrace()
         }
-        return Pair(totalUp, totalDown)
+        return bucket
     }
 
     fun getUidUsage(
@@ -38,27 +35,24 @@ class DataUsageQuery {
         endTime: Long,
         networkType: Int,
         slotIndex: Int?
-    ): Pair<Long, Long> {
+    ): Bucket {
         val networkStats: NetworkStats
         val networkStatsManager = context.getSystemService(NetworkStatsManager::class.java)
-        var totalUp = 0L
-        var totalDown = 0L
+        val bucket = Bucket()
         try {
             networkStats = networkStatsManager.queryDetailsForUid(
                 networkType, getSubscriberIdForSim(context, slotIndex), startTime, endTime, uid
             )
-            val bucket = NetworkStats.Bucket()
             while (networkStats.hasNextBucket()) {
                 networkStats.getNextBucket(bucket)
-                totalUp += bucket.txBytes
-                totalDown += bucket.rxBytes
+
             }
             networkStats.close()
 
         } catch (e: SecurityException) {
             e.printStackTrace()
         }
-        return Pair(totalUp, totalDown)
+        return bucket
     }
 
     companion object {
