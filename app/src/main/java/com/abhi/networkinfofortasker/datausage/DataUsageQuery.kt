@@ -13,20 +13,24 @@ class DataUsageQuery {
 
     fun getDeviceUsage(
         context: Context, startTime: Long, endTime: Long, networkType: Int, slotIndex: Int?
-    ): Bucket {
-        var bucket = Bucket()
+    ): Pair<Long, Long> {
+        val bucket: Bucket
         val networkStatsManager = context.getSystemService(NetworkStatsManager::class.java)
+        var totalUp = 0L
+        var totalDown = 0L
         try {
             val subscriberId = getSubscriberIdForSim(context, slotIndex)
             bucket = networkStatsManager.querySummaryForDevice(
                 networkType, subscriberId, startTime, endTime
             )
+            totalUp += bucket.txBytes
+            totalDown += bucket.rxBytes
         } catch (e1: RemoteException) {
             e1.printStackTrace()
         } catch (e2: SecurityException) {
             e2.printStackTrace()
         }
-        return bucket
+        return Pair(totalUp, totalDown)
     }
 
     fun getUidUsage(
@@ -36,24 +40,27 @@ class DataUsageQuery {
         endTime: Long,
         networkType: Int,
         slotIndex: Int?
-    ): Bucket {
+    ): Pair<Long, Long> {
         val networkStats: NetworkStats
         val networkStatsManager = context.getSystemService(NetworkStatsManager::class.java)
-        val bucket = Bucket()
+        var totalUp = 0L
+        var totalDown = 0L
         try {
             networkStats = networkStatsManager.queryDetailsForUid(
                 networkType, getSubscriberIdForSim(context, slotIndex), startTime, endTime, uid
             )
+            val bucket = Bucket()
             while (networkStats.hasNextBucket()) {
                 networkStats.getNextBucket(bucket)
-
+                totalUp += bucket.txBytes
+                totalDown += bucket.rxBytes
             }
             networkStats.close()
 
         } catch (e: SecurityException) {
             e.printStackTrace()
         }
-        return bucket
+        return Pair(totalUp, totalDown)
     }
 
     companion object {
@@ -67,8 +74,8 @@ class DataUsageQuery {
         TODAY("query_mode_today"), THIS_MONTH("query_mode_this_month"), CUSTOM("query_mode_custom_time")
     }
 
-    enum class CustomKeys() {
-        DEVICE, ALL, REMOVED, TETHERING;
+    enum class CustomKeys {
+        DEVICE, ALL, REMOVED, TETHERING, APPS;
 
         fun getKey(): String {
             return name.lowercase(Locale.getDefault())

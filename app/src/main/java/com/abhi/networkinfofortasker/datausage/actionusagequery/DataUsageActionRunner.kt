@@ -61,12 +61,13 @@ class DataUsageActionRunner :
 
         networkStatManager = DataUsageQuery()
         val dataMap = mutableMapOf<String, Any>()
+
         //stage1 querying device data usage
-        val deviceUsageBucket = networkStatManager.getDeviceUsage(
+        val deviceUsage = networkStatManager.getDeviceUsage(
             context, startTime, endTime, networkType, slotIndex
         )
-        val deviceDataUsage = getDataUsageObj(deviceUsageBucket)
-        dataMap[CustomKeys.DEVICE.getKey()] = deviceDataUsage
+        dataMap[CustomKeys.DEVICE.getKey()] = getDataUsageObj(deviceUsage)
+
         //stage2 querying custom uid data usage
         input.regular.apply {
             if (uidAll) dataMap[CustomKeys.ALL.getKey()] = getUidUsage(Bucket.UID_ALL)
@@ -74,7 +75,9 @@ class DataUsageActionRunner :
             if (uidTethering) dataMap[CustomKeys.TETHERING.getKey()] =
                 getUidUsage(Bucket.UID_TETHERING)
         }
+
         val uidList: MutableList<Int> = mutableListOf()
+
         //stage3 querying app data usage
         if (!input.regular.appPackages.isNullOrEmpty()) {
             val packages = input.regular.appPackages!!.split(",")
@@ -86,15 +89,15 @@ class DataUsageActionRunner :
                 uidUsageList.add(uidUsage)
             }
             uidUsageList.sortByDescending { it.dataUsage.total }
-            dataMap["apps"] = uidUsageList
+            dataMap[CustomKeys.APPS.getKey()] = uidUsageList
         }
+
         val dataUsageJson = Convert.convertToJson(dataMap)
         return TaskerPluginResultSucess(DataUsageActionOutput(dataUsageJson))
     }
 
-    private fun getDataUsageObj(bucket: Bucket): DataUsage {
-        val bytesUp = bucket.txBytes
-        val bytesDown = bucket.rxBytes
+    private fun getDataUsageObj(usage: Pair<Long, Long>): DataUsage {
+        val (bytesUp, bytesDown) = usage
         val bytesTotal = bytesUp + bytesDown
         return DataUsage(
             bytesUp, Convert.bytes(mContext, bytesUp),
@@ -104,9 +107,9 @@ class DataUsageActionRunner :
     }
 
     private fun getUidUsage(uid: Int): DataUsage {
-        val uidBucket = networkStatManager.getUidUsage(
+        val uidUsage = networkStatManager.getUidUsage(
             mContext, uid, startTime, endTime, networkType, slotIndex
         )
-        return getDataUsageObj(uidBucket)
+        return getDataUsageObj(uidUsage)
     }
 }
